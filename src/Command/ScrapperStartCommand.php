@@ -56,7 +56,7 @@ class ScrapperStartCommand extends Command
                 ->from('scrapper@adamrafik.com')
                 ->to('adam.rafik@ecole-hexagone.com')
                 ->subject('The website has changed!')
-                ->text("New articles: \n" . $body . "\n The website: " . $uri);
+                ->html("<h1>New articles: </h1>" . $body . "<a href='" . $uri . "'>The website: </a>");
 
             $this->mailer->send($email);
 
