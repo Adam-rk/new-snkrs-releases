@@ -50,13 +50,17 @@ class ScrapperStartCommand extends Command
         } else {
             $fileSystem = new Filesystem();
 
-            $body = implode(PHP_EOL, $pageContent);
+            $body = "";
 
+            foreach ($pageContent as $content) {
+                $body .= "<a href='" . $content['link'] . "'>" . $content['categorie'] . " --- " . $content['name'] . "</a><br>";
+            }
+        
             $email = (new Email())
                 ->from('scrapper@adamrafik.com')
                 ->to('adam.rafik@ecole-hexagone.com')
                 ->subject('The website has changed!')
-                ->html("<h1>New articles: </h1>" . $body . "<a href='" . $uri . "'>The website: </a>");
+                ->html("<h1>New articles: </h1><br>" . $body . "<br><a href='" . $uri . "'>The website</a>");
 
             $this->mailer->send($email);
 
